@@ -36,3 +36,15 @@
     transform: rotate(360deg);
   }
 }
+.container{
+  margin: 1rem;
+}.product_image{
+  position: relative;
+  transition: transform 0.3s ease-in-out;
+}
+
+.product_image:hover {
+  transform: scale(1.1);
+}
+
+
