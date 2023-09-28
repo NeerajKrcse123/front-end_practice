@@ -1,6 +1,6 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
-import { ProductsApi } from '../Url/api'; // Adjust the path as needed
-import axios from 'axios';
+import { createAsyncThunk } from "@reduxjs/toolkit";
+// import { ProductsApi } from '../Url/api'; // Adjust the path as needed
+import axios from "axios";
 // ActionTypes.js (assuming you have a separate file for action types)
 export const ADD_ITEM_TO_CART = "ADD_ITEM_TO_CART";
 export const REMOVE_ITEM_FROM_CART = "REMOVE_ITEM_FROM_CART";
@@ -9,14 +9,14 @@ export const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
 export const SET_TOTAL_PAGES = "SET_TOTAL_PAGES";
 export const FETCH_PRODUCTS = "FETCH_PRODUCTS";
 export const FETCH_PRODUCTS_BY_PAGE = "FETCH_PRODUCTS_BY_PAGE";
-export const SET_SELECTED_CATEGORY = 'SET_SELECTED_CATEGORY';
-export const CLEAR_SELECTED_CATEGORY = 'CLEAR_SELECTED_CATEGORY';
+export const SET_SELECTED_CATEGORY = "SET_SELECTED_CATEGORY";
+export const CLEAR_SELECTED_CATEGORY = "CLEAR_SELECTED_CATEGORY";
+const baseUrl = process.env.REACT_APP_BASE_URL;
 
 const apiError = (error) => ({
-  type: 'API_ERROR',
+  type: "API_ERROR",
   payload: error,
 });
-
 
 // Action creators
 export const addItemToCart = (product) => ({
@@ -54,7 +54,7 @@ export const clearSelectedCategory = () => ({
 // Async action using createAsyncThunk for fetching products
 export const fetchProducts = createAsyncThunk(FETCH_PRODUCTS, async () => {
   try {
-    const response = await axios.get(ProductsApi);
+    const response = await axios.get(baseUrl);
     // console.log("API Response:", response.data);
     return response.data;
   } catch (error) {
@@ -69,10 +69,9 @@ export const fetchProductsByPage = createAsyncThunk(
     try {
       const skip = (currentPage - 1) * itemsPerPage;
       const response = await axios.get(
-        `${ProductsApi}?limit=${itemsPerPage}&skip=${skip}`
-        
+        `${baseUrl}?limit=${itemsPerPage}&skip=${skip}`
       );
-     
+
       return response.data;
     } catch (error) {
       console.error("API Error:", error);
@@ -80,4 +79,3 @@ export const fetchProductsByPage = createAsyncThunk(
     }
   }
 );
-
